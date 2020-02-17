@@ -24,7 +24,27 @@
 
 
   //create a function when invoked returns the name of that employee.
+ function name(object){
+      var ob = {}
+      ob.name = object.name;
+      ob.salary = object.salary;
+      ob.sayMyName = name;
+      ob.sayHello = hello;
+      ob.increaseSalary = increase;
+      return ob
+  }
 
+  var name = function(){
+    return this.name;
+  }
+   var hello = function(){
+     return "Hello " + this.name;
+
+   }
+
+   var increase = function(amount){
+   return this.salary + amount;
+   }
   // employeeA.sayMyName(); // "jack"
   // employeeB.sayMyName(); // "Mark"
 
