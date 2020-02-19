@@ -10,12 +10,34 @@
 /*                              Q1                                            */
 //==============================================================================
 //lets make an employee profile using closures
-
-  function employee (name,salary){
+ function employee (name,salary){
+    friends = [];
     return {
-      name: name,
-      salary: salary
-    }   
+      sayMyName : function(){
+          return name;
+      },
+      sayHello : function(){
+           return "Hello " + name;
+      },
+      increaseSalary : function(amount){
+                 salary += amount;
+                 return salary
+      },
+      addFriend : function(friend){
+          if (!friends.includes(friend.sayMyName())){
+          friends.push(friend.sayMyName())
+          }
+          var str = "you just became friend with " + friends[0]
+          for (var i = 1; i < friends.length; i++){
+            str +=  " and " + friends[i];
+          }
+          return str;
+      },
+      listFriends : function(){
+          return "you have " + friends.length + " friends";
+      }
+
+    }
   }
 
   var employeeA = employee("jack", 100);
@@ -23,28 +45,8 @@
   var employeeC = employee("Sara", 150);
 
 
+
   //create a function when invoked returns the name of that employee.
- function name(object){
-      var ob = {}
-      ob.name = object.name;
-      ob.salary = object.salary;
-      ob.sayMyName = name;
-      ob.sayHello = hello;
-      ob.increaseSalary = increase;
-      return ob
-  }
-
-  var name = function(){
-    return this.name;
-  }
-   var hello = function(){
-     return "Hello " + this.name;
-
-   }
-
-   var increase = function(amount){
-   return this.salary + amount;
-   }
   // employeeA.sayMyName(); // "jack"
   // employeeB.sayMyName(); // "Mark"
 
@@ -72,7 +74,8 @@
 /*                                  Q2                                       */
 //=============================================================================
   //lets create a pet class using OOP concept,
-  // a - we need to create the pets (lets create only one for now), the invocation should take the name of the pet. 
+  // a - we need to create the pets (lets create only one for now), the invocation should take the name of the pet.
+
 
   // var pet1 = Pet("doggy");
 
@@ -88,10 +91,42 @@
   //    and when called again it will make it false.
 
 
-  // Write your code here .....
+function Pet(name){
+    var pet = {};
+    var availability = false;
+    pet.name = name;
+    pet.addInfo = addInfo;
+    pet.increaseAge = increase;
+    pet.availability = availability;
+    pet.changeState = state;
+    return pet;
+}
+
+var addInfo = function(age, owner, gender, species ){
+
+           this.age = age;
+           this.owner = owner;
+           this.gender = gender;
+           this.species = species;
+
+}
+
+var increase = function(n){
+    return this.age += n;
+    }
+
+var availability = function(){
+    return this.availability = true;
+    }
+
+var state = function(){
+    return this.availability = !this.availability;
+}
 
 
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
+
+  // Yes I am
 
 //=============================================================================
 /*                                  Q3                                       */
@@ -108,21 +143,27 @@ function each(coll, f) {
   }
 }
 
-function reduce(array, f, acc) { 
- if (acc === undefined) { 
-   acc = array[0]; 
-   array = array.slice(1); 
- } 
- each(array, function(element, i) { 
-   acc = f(acc, element, i); 
- }); 
- return acc; 
+function reduce(array, f, acc) {
+ if (acc === undefined) {
+   acc = array[0];
+   array = array.slice(1);
+ }
+ each(array, function(element, i) {
+   acc = f(acc, element, i);
+ });
+ return acc;
 }
 
-// Use the updated version of reduce to write a function max that returns the maximum number in an array of numbers. 
+// Use the updated version of reduce to write a function max that returns the maximum number in an array of numbers.
 
-// Write your code here .....
-
+function max(arr){
+    return reduce(arr,function(acc, element, i){
+               if(arr[i] > acc){
+                   return arr[i]
+               }
+               return acc
+    })
+}
 
 
 
